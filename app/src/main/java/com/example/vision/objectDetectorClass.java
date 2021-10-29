@@ -31,7 +31,7 @@ import java.util.TreeMap;
 public class objectDetectorClass {
 
     //Context from CameraActivity
-    Context context;
+    static Context context;
     //this is used to load model and predict
     private Interpreter interpreter;
     //show all label in list

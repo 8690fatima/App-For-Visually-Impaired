@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             //get battery level
             int level= intent.getIntExtra(BatteryManager.EXTRA_LEVEL,0);
             //check if the battery is low
-            if (level <=100){
+            if (level <= 20){
                 Toast.makeText(MainActivity.this, "Battery low detected", Toast.LENGTH_SHORT).show();
                 makeCall();
             }
@@ -128,25 +128,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void makeCall(){
 
-        runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-
-                SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-                String ENUM = sharedPreferences.getString("ENUM", "NONE");
-                //if call permission is not granted;hence we give permission
-                if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED){
-                    ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
-                }
-                else{
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + ENUM));
-                    startActivity(callIntent);
-                }
-
-            }
-        });
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String ENUM = sharedPreferences.getString("ENUM", "NONE");
+        //if call permission is not granted;hence we give permission
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+        }
+        else{
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:" + ENUM));
+            startActivity(callIntent);
+        }
         finish();
     }
 
