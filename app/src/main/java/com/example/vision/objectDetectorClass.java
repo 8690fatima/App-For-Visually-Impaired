@@ -1,5 +1,6 @@
 package com.example.vision;
 
+import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -29,6 +30,8 @@ import java.util.TreeMap;
 
 public class objectDetectorClass {
 
+    //Context from CameraActivity
+    Context context;
     //this is used to load model and predict
     private Interpreter interpreter;
     //show all label in list
@@ -42,7 +45,10 @@ public class objectDetectorClass {
     private int height = 0;
     private int width = 0;
 
-    objectDetectorClass(AssetManager assetManager, String modelPath, String labelPath, int inputSize) throws IOException {
+    objectDetectorClass(Context context, AssetManager assetManager, String modelPath, String labelPath, int inputSize) throws IOException {
+
+        this.context = context;
+
         INPUT_SIZE = inputSize;
         //use to define gpu or cpu // no. of threads
         Interpreter.Options options = new Interpreter.Options();
@@ -152,7 +158,10 @@ public class objectDetectorClass {
                 Imgproc.rectangle(rotated_mat_image,new Point(left,top),new Point(right,bottom),new Scalar(0, 255, 0, 255),2);
                 // write text on frame
                 // string of class name of object  // starting point                         // color of text           // size of text
-                Imgproc.putText(rotated_mat_image,labelList.get((int) class_value),new Point(left,top),3,1,new Scalar(255, 0, 0, 255),2);
+
+                String objectClass = labelList.get((int) class_value);
+                new TTS(context, objectClass);
+                Imgproc.putText(rotated_mat_image,objectClass,new Point(left,top),3,1,new Scalar(255, 0, 0, 255),2);
             }
 
         }

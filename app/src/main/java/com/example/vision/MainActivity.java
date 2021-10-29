@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private Button camera_button;
     private Button ocr_button;
     private ImageView mic_button;
-    private boolean showBatteryLowNotification = true;
 
     //private Ringtone ringtone;
     private static final int REQUEST_CALL=1;
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             //get battery level
             int level= intent.getIntExtra(BatteryManager.EXTRA_LEVEL,0);
             //check if the battery is low
-            if (level <=20 && showBatteryLowNotification){
+            if (level <=100){
                 Toast.makeText(MainActivity.this, "Battery low detected", Toast.LENGTH_SHORT).show();
                 makeCall();
             }
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        new TTS().initializeTTS("It's a pleasure to meet you. Please press mic button and say search for knowing what's around you. Or say read to let me help you know the content directed by the camera", MainActivity.this);
+        new TTS(MainActivity.this, "It's a pleasure to meet you. Please press mic button and say search for knowing what's around you. Or say read to let me help you know the content directed by the camera");
 
         camera_button=findViewById(R.id.camera_button);
         camera_button.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mic_button=findViewById(R.id.mic_button);
+
         this.registerReceiver(this.Batterynot,new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
 
@@ -122,25 +122,32 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this,OcrActivity.class));
         }
         else{
-            new TTS().initializeTTS("Sorry I didn't understand. Please press mic button and say search for knowing what's around you. Or say read to let me help you know the content directed by the camera.", MainActivity.this);
+            new TTS(MainActivity.this, "Sorry I didn't understand. Please press mic button and say search for knowing what's around you. Or say read to let me help you know the content directed by the camera.");
         }
     }
 
     private void makeCall(){
 
-        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        String ENUM = sharedPreferences.getString("ENUM", "NONE");
-        //if call permission is not granted;hence we give permission
-        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
-        }
-        else{
-            Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:" + ENUM));
-            startActivity(callIntent);
+        runOnUiThread(new Runnable() {
 
-            showBatteryLowNotification = false;
-        }
+            @Override
+            public void run() {
+
+                SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+                String ENUM = sharedPreferences.getString("ENUM", "NONE");
+                //if call permission is not granted;hence we give permission
+                if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+                }
+                else{
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + ENUM));
+                    startActivity(callIntent);
+                }
+
+            }
+        });
+        finish();
     }
 
     //if call permission is already granted at the first place

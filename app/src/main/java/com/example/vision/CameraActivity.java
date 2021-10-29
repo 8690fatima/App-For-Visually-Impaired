@@ -78,7 +78,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
 
         try{
             //input size is 300 for this model
-            objectDetectorClass = new objectDetectorClass(getAssets(),"ssd_mobilenet_v1_1_metadata_1.tflite","labelmap.txt",300);
+            objectDetectorClass = new objectDetectorClass(CameraActivity.this, getAssets(),"ssd_mobilenet_v1_1_metadata_1.tflite","labelmap.txt",300);
             Log.d("MainActivity","Model is successfully loaded");
         }
         catch(IOException e){
