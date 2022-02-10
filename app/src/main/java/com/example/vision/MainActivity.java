@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private Button camera_button;
     private Button ocr_button;
     private ImageView mic_button;
+    private boolean showBatteryLowNotification = true;
 
     //private Ringtone ringtone;
     private static final int REQUEST_CALL=1;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             //get battery level
             int level= intent.getIntExtra(BatteryManager.EXTRA_LEVEL,0);
             //check if the battery is low
-            if (level <= 20){
+            if (level <=20 && showBatteryLowNotification){
                 Toast.makeText(MainActivity.this, "Battery low detected", Toast.LENGTH_SHORT).show();
                 makeCall();
             }
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        new TTS(MainActivity.this, "It's a pleasure to meet you. Please press mic button and say search for knowing what's around you. Or say read to let me help you know the content directed by the camera");
+        new TTS().initializeTTS("It's a pleasure to meet you. Please press mic button and say search for knowing what's around you. Or say read to let me help you know the content directed by the camera", MainActivity.this);
 
         camera_button=findViewById(R.id.camera_button);
         camera_button.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mic_button=findViewById(R.id.mic_button);
-
         this.registerReceiver(this.Batterynot,new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
 
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this,OcrActivity.class));
         }
         else{
-            new TTS(MainActivity.this, "Sorry I didn't understand. Please press mic button and say search for knowing what's around you. Or say read to let me help you know the content directed by the camera.");
+            new TTS().initializeTTS("Sorry I didn't understand. Please press mic button and say search for knowing what's around you. Or say read to let me help you know the content directed by the camera.", MainActivity.this);
         }
     }
 
@@ -138,8 +138,9 @@ public class MainActivity extends AppCompatActivity {
             Intent callIntent = new Intent(Intent.ACTION_CALL);
             callIntent.setData(Uri.parse("tel:" + ENUM));
             startActivity(callIntent);
+
+            showBatteryLowNotification = false;
         }
-        finish();
     }
 
     //if call permission is already granted at the first place
