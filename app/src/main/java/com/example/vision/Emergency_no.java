@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
-
 public class Emergency_no extends AppCompatActivity {
 
     EditText number1,number2,number3;

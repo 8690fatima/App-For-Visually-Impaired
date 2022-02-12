@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
+ 
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        new TTS().initializeTTS("It's a pleasure to meet you. Please press mic button and say search for knowing what's around you. Or say read to let me help you know the content directed by the camera", MainActivity.this);
+        new TTS(MainActivity.this, "It's a pleasure to meet you. Please press mic button and say search for knowing what's around you. Or say read to let me help you know the content directed by the camera");
 
         camera_button=findViewById(R.id.camera_button);
         camera_button.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this,OcrActivity.class));
         }
         else{
-            new TTS().initializeTTS("Sorry I didn't understand. Please press mic button and say search for knowing what's around you. Or say read to let me help you know the content directed by the camera.", MainActivity.this);
+            new TTS(MainActivity.this, "Sorry I didn't understand. Please press mic button and say search for knowing what's around you. Or say read to let me help you know the content directed by the camera.");
         }
     }
 
