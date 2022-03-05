@@ -8,15 +8,15 @@ public class TTS {
 
     static Context context;
     private TextToSpeech textToSpeech;
-    private String text;
+    private String message;
 
-    TTS(Context context, String text) {
+    TTS(Context context, String message) {
 
-        this.context = context;
-        this.text = text;
+        TTS.context = context;
+        this.message = message;
 
         textToSpeech = new TextToSpeech(
-                this.context,
+                context,
                 new TextToSpeech.OnInitListener() {
                     @Override
                     public void onInit(int i) {
@@ -25,7 +25,7 @@ public class TTS {
 
                             textToSpeech.setLanguage(Locale.ENGLISH);
 
-                            textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+                            textToSpeech.speak(message, TextToSpeech.QUEUE_FLUSH, null);
                         }
 
                     }
