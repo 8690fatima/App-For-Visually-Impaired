@@ -24,12 +24,12 @@
 
     <application
         android:allowBackup="false"
-        tools:replace="android:allowBackup"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Vision">
+        android:theme="@style/Theme.Vision"
+        tools:replace="android:allowBackup">
         <activity
             android:name=".AppPermissions"
             android:exported="true" />
