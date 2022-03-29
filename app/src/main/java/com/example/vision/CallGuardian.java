@@ -24,7 +24,7 @@ public class CallGuardian extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call_guardian);
-        getSupportActionBar().setTitle("Call");
+        getSupportActionBar().setTitle(R.string.Call);
 
         phoneCall();
     }

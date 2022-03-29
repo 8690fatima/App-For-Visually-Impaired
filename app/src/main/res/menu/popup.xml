@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="Change Number"
+        android:title="@string/change_number"
         android:id="@+id/changeNum"/>
 </menu>

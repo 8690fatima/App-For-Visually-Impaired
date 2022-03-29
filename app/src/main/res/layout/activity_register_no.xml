@@ -3,11 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/gradiant"
     android:layout_height="match_parent"
-    tools:context=".Emergency_no">
+    android:background="@drawable/gradiant">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        tools:context=".Emergency_no">
 
         <TextView
             android:id="@+id/text1"
@@ -15,50 +22,46 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="180dp"
             android:layout_centerHorizontal="true"
-            android:text="Enter Number To\nCALL\nin\nEMERGENCY!"
+            android:text="@string/enter_number_to_ncall_nin_nemergency"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="19sp" />
 
         <EditText
+            android:id="@+id/number1"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_below="@id/text1"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:id="@+id/number1"
-            android:textAlignment="center"
-            android:hint="Contact Number1"
+            android:hint="@string/hintContact1"
             android:inputType="phone"
-            android:layout_below="@id/text1"
-            />
+            android:minHeight="48dp"
+            android:textAlignment="center" />
 
         <EditText
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:id="@+id/number2"
-        android:textAlignment="center"
-        android:hint="Contact Number2"
+            android:id="@+id/number2"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/number1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:hint="@string/hintContact2"
             android:inputType="phone"
-        android:layout_below="@id/number1"
-        />
+            android:minHeight="48dp"
+            android:textAlignment="center" />
 
         <EditText
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:id="@+id/number3"
-        android:textAlignment="center"
-        android:hint="Contact Number3"
+            android:id="@+id/number3"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/number2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:hint="@string/hintContact3"
             android:inputType="phone"
-        android:layout_below="@id/number2"
-        />
-
-
-
-
+            android:minHeight="48dp"
+            android:textAlignment="center" />
 
     <Button
             android:layout_width="200dp"
@@ -71,9 +74,13 @@
             android:layout_marginBottom="10dp"
             android:backgroundTint="#ffffff"
             android:onClick="saveNumber"
-            android:text="Finish"
+            android:text="@string/finish"
             android:textColor="@color/black"
             app:cornerRadius="10dp" />
+
+    </RelativeLayout>
+
+    </ScrollView>
 
     </RelativeLayout>
 

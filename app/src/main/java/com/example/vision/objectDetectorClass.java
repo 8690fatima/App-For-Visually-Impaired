@@ -4,12 +4,16 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.gpu.GpuDelegate;
@@ -24,6 +28,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -44,10 +49,11 @@ public class objectDetectorClass {
     private GpuDelegate gpuDelegate;
     private int height = 0;
     private int width = 0;
+    private TextToSpeech textToSpeech;
 
     objectDetectorClass(Context context, AssetManager assetManager, String modelPath, String labelPath, int inputSize) throws IOException {
 
-        this.context = context;
+        objectDetectorClass.context = context;
 
         INPUT_SIZE = inputSize;
         //use to define gpu or cpu // no. of threads
@@ -72,6 +78,7 @@ public class objectDetectorClass {
         while ((line = reader.readLine()) != null) {
             labelList.add(line);
         }
+
         reader.close();
         return labelList;
     }
@@ -116,7 +123,7 @@ public class objectDetectorClass {
 
         Map<Integer,Object> output_map=new TreeMap<>();
 
-        //Create treemap of three array (boxes,score,classes)
+        //Create treemap of three array (boxes,scores,classes)
         float[][][]boxes =new float[1][10][4];
 
         // 10: top 10 object detected
@@ -135,14 +142,17 @@ public class objectDetectorClass {
         // now predict
         interpreter.runForMultipleInputsOutputs(input,output_map);
 
+        Object value= output_map.get(0);
+        Object Object_class = output_map.get(1);
+        Object score = output_map.get(2);
 
-        Object value=output_map.get(0);
-        Object Object_class=output_map.get(1);
-        Object score=output_map.get(2);
+        //Stores the object names
+        ArrayList<String> objectsFound = new ArrayList<>();
 
         // loop through each object
         // as output has only 10 boxes
         for (int i=0;i<10;i++){
+
             float class_value=(float) Array.get(Array.get(Object_class,0),i);
             float score_value=(float) Array.get(Array.get(score,0),i);
             // define threshold for score
@@ -160,12 +170,33 @@ public class objectDetectorClass {
                 // string of class name of object  // starting point                         // color of text           // size of text
 
                 String objectClass = labelList.get((int) class_value);
-                new TTS(context, objectClass);
+
+                //Adding the object found to the arraylist
+                objectsFound.add(objectClass);
+
                 Imgproc.putText(rotated_mat_image,objectClass,new Point(left,top),3,1,new Scalar(255, 0, 0, 255),2);
             }
-
         }
 
+        String objects = "";
+
+        //Appending all objects found to string objects
+        for(String obj: objectsFound){
+            objects += obj + ", ";
+        }
+
+        String finalOutput = objects; //Need to pass the objects string as a final variable in tts
+
+        textToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
+                    @Override
+                    public void onInit(int i) {
+                        if (i == TextToSpeech.SUCCESS && !finalOutput.equals("")) {
+                            textToSpeech.speak(finalOutput + "lies ahead of you", TextToSpeech.QUEUE_FLUSH,null);
+                        }else{
+                            Log.e("ObjectDetectorClass","Failed to read out object name");
+                        }
+                    }
+                });
 
         // before returning rotate back by -90 degree
         Core.flip(rotated_mat_image.t(),mat_image,0);
@@ -210,6 +241,7 @@ public class objectDetectorClass {
                 }
             }
         }
+
         return byteBuffer;
     }
 }

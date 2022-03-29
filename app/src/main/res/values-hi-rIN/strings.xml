@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">
+        VISION
+    </string>
+
+    <string name="welcomeMessage">
+        नमस्ते, VISION में आपका स्वागत है।
+    </string>
+
+    <string name="emergencyNumbersMessage">
+        कृपया अपने करीबी के नंबर दर्ज करें।
+        एक या अधिक से अधिक तीन फ़ोन नंबर दर्ज करें।
+        जब आपके फोन की बैटरी कम होगी, तब,
+        आपका वर्तमान पता, इन नंबरों पर, एसएमएस के जरिए भेजा जाएगा, जिसके माध्यम से, वे आपको लेने आ सकते हैं।
+    </string>
+
+    <string name="intro">
+        माइक बटन दबाएं और,
+        कहिये खोजना,
+        या, कहिये पढ़ना,
+        या, कहिये असिस्टेंट।
+        अधिक जानकारी के लिए कहिये सहायता।
+
+    </string>
+
+    <string name="batteryLowMessage">
+        आपके मोबाइल की बैटरी बीस परसेंट से कम है।
+        माइक बटन दबाएं और,
+        अपने करीबी लोगों के नंबर पर आपका वर्तमान पता एसएमएस के जरिए भेजने के लिए, कहिये, हां,
+        वरना,
+        बैटरी कम होने की सूचना को रोकने के लिए, कहिये, नहीं।
+    </string>
+
+    <string name="batteryNoMessage">
+        बैटरी कम होने की सूचना रोक दी गई है.
+    </string>
+
+    <string name="location">
+        मेरे फ़ोन की बैटरी कम है। कृपया मुझे इस स्थान पर खोजें http://maps.google.com/maps?q=loc:
+    </string>
+
+    <string name="cameraSearch">
+        खोज के लिए कैमरा शुरू किया जा रहा है।
+    </string>
+
+    <string name="cameraRead">
+        पढ़ने के लिए कैमरा शुरू किया जा रहा है।
+    </string>
+
+    <string name="assistant">
+        गूगल असिस्टेंट शुरू किया जा रहा है।
+    </string>
+
+    <string name="cameraStopped">
+        कैमरा बंद किया जा रहा है।
+    </string>
+
+    <string name="inputCommandSearch">
+        खोजना
+    </string>
+
+    <string name="inputCommandRead">
+        पढ़ना
+    </string>
+
+    <string name="inputCommandAssistant">
+        असिस्टेंट
+    </string>
+
+    <string name="inputCommandHelp">
+        सहायता
+    </string>
+
+    <string name="help">
+        अपने आस-पास क्या है, यह जानने के लिए, माइक में कहिये, खोजना।
+        कुछ पढ़ने के लिए माइक में कहिये, पढ़ना।
+        गूगल असिस्टेंट, शुरू करने के लिए, माइक में कहिये, असिस्टेंट।
+    </string>
+
+    <string name="battery">
+        बैटरी
+    </string>
+
+    <string name="inputCommandBatteryYes">
+        बैटरी हां
+    </string>
+
+    <string name="inputCommandBatteryNo">
+        बैटरी नहीं
+    </string>
+
+    <string name="appPermissionMessage">
+        कृपया आवश्यक ऐप अनुमतियां स्वीकार करें
+    </string>
+
+    <string name="locationMessage">
+        अपना वर्तमान पता खोज रहे हैं
+    </string>
+
+    <string name="GPSMessage">
+        कृपया अपने डिवाइस पर GPS चालू करें
+    </string>
+
+    <string name="SMSMessage">
+        कृपया प्रतीक्षा करें, आपका वर्तमान पता, एसएमएस के माध्यम से, दर्ज किए गए मोबाइल नंबरों पर, भेजा जा रहा है।
+    </string>
+
+    <string name="enter_number_to_ncall_nin_nemergency">
+        आपात स्थिति में\nकॉल करने के लिए\nफ़ोन नंबर दर्ज करें!
+    </string>
+    <string name="hintContact1">
+        संपर्क नंबर 1
+    </string>
+
+    <string name="hintContact2">
+        संपर्क नंबर 2
+    </string>
+
+    <string name="hintContact3">
+        संपर्क नंबर 3
+    </string>
+
+    <string name="finish">
+        समाप्त
+    </string>
+
+    <string name="hintSMSLog">
+        एसएमएस लॉग
+    </string>
+
+    <string name="home">
+        होम
+    </string>
+
+    <string name="RegisterNumber">
+        रजिस्टर नंबर
+    </string>
+
+    <string name="AppPermissions">
+        अप्प परमिसन</string>
+
+    <string name="Call">कॉल</string>
+
+    <string name="SMSLocation">
+        एसएमएस लोकेशन
+    </string>
+
+    <string name="change_number">चेनज नमबर</string>
+
+</resources>

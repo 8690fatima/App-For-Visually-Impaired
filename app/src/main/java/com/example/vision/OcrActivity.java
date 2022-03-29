@@ -69,7 +69,7 @@ public class OcrActivity extends AppCompatActivity {
             Log.w("MainActivity", "Detector dependencies are not yet available");
         } else {
             cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
-                    .setFacing(cameraSource.CAMERA_FACING_BACK)
+                    .setFacing(CameraSource.CAMERA_FACING_BACK)
                     .setRequestedPreviewSize(1280, 1024)
                     .setRequestedFps(2.0f)
                     .setAutoFocusEnabled(true)
@@ -137,5 +137,16 @@ public class OcrActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        new TTS().initializeTTS(getString(R.string.cameraStopped),getApplicationContext());
+        super.onBackPressed();
     }
 }

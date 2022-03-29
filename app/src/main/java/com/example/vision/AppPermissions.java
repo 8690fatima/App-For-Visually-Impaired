@@ -1,15 +1,21 @@
 package com.example.vision;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,7 +25,7 @@ public class AppPermissions extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_permissions);
-        getSupportActionBar().setTitle("App permissions");
+        getSupportActionBar().setTitle(R.string.AppPermissions);
 
         checkAppPermissions();
     }
@@ -66,10 +72,10 @@ public class AppPermissions extends AppCompatActivity {
 
         //Requesting app permissions that are not yet granted
         if(permissionsArray.length > 0) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(permissionsArray, 1000);
-                new TTS(this, "Please provide the necessary app permissions.");
-            }
+
+            requestPermissions(permissionsArray, 1000);
+            new TTS().initializeTTS(getString(R.string.appPermissionMessage),this);
+
         }else{
             goToHomeActivity();
         }
@@ -80,7 +86,7 @@ public class AppPermissions extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if(requestCode == 1000){
-            goToHomeActivity();
+            checkAppPermissions();
         }
     }
 

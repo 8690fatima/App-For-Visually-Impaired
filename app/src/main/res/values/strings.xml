@@ -1,3 +1,153 @@
-<resources>
-    <string name="app_name">Vision</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">
+        VISION
+    </string>
+
+    <string name="welcomeMessage">
+        Greetings,and welcome to VISION.
+    </string>
+
+    <string name="emergencyNumbersMessage">
+        Please provide the phone numbers of people close to you.
+        Enter at least one, or at most three phone numbers.
+        When your phone battery level is low, your current location will be sent through SMS
+        to these phone numbers, through which they can locate you.
+    </string>
+
+    <string name="intro">
+        Press mic button and,
+        Say SEARCH…, READ… or ASSISTANT.
+        For more information say help.
+    </string>
+
+    <string name="batteryLowMessage">
+        Your battery level is less than 20%.
+        Press the mic button and,
+        say YES to send your location to your emergency numbers,
+        else,
+        say No to dismiss battery low notification.
+    </string>
+
+    <string name="batteryNoMessage">
+        Battery Low Notification dismissed.
+    </string>
+
+    <string name="location">
+        My phone\'s battery is low. Please find me at this location http://maps.google.com/maps?q=loc:
+    </string>
+
+    <string name="cameraSearch">
+        Starting camera for searching.
+    </string>
+
+    <string name="cameraRead">
+        Starting camera for reading.
+    </string>
+
+    <string name="assistant">
+        Starting google assistant…
+    </string>
+
+    <string name="cameraStopped">
+        Stopping camera…
+    </string>
+
+    <string name="inputCommandSearch">
+        SEARCH
+    </string>
+
+    <string name="inputCommandRead">
+        READ
+    </string>
+
+    <string name="inputCommandAssistant">
+        ASSISTANT
+    </string>
+
+    <string name="inputCommandHelp">
+        HELP
+    </string>
+
+    <string name="help">
+        Say, SEARCH for knowing what\'s around you.
+        Say, READ to let me help you read something.
+        Say, assistant for starting google assistant.
+    </string>
+
+    <string name="battery">
+        battery
+    </string>
+
+    <string name="inputCommandBatteryYes">
+        battery yes
+    </string>
+
+    <string name="inputCommandBatteryNo">
+        battery no
+    </string>
+
+    <string name="appPermissionMessage">
+        Please provide the necessary app permissions.
+    </string>
+
+    <string name="locationMessage">
+        Fetching your current location.
+    </string>
+
+    <string name="GPSMessage">
+        Please enable GPS on your device.
+    </string>
+
+    <string name="SMSMessage">
+        Please wait we are sending your location to your emergency contact numbers.
+    </string>
+
+    <string name="enter_number_to_ncall_nin_nemergency">
+        Enter Number To\nCALL\nin\nEMERGENCY!
+    </string>
+
+    <string name="hintContact1">
+        Contact Number 1
+    </string>
+
+    <string name="hintContact2">
+        Contact Number 2
+    </string>
+
+    <string name="hintContact3">
+        Contact Number 3
+    </string>
+
+    <string name="finish">
+        Finish
+    </string>
+
+    <string name="hintSMSLog">
+        SMS LOG
+    </string>
+
+    <string name="home">
+        HOME
+    </string>
+
+    <string name="RegisterNumber">
+        Register Number
+    </string>
+
+    <string name="AppPermissions">
+        App permissions
+    </string>
+
+    <string name="Call">
+        Call
+    </string>
+
+    <string name="SMSLocation">
+        SMS Current Location
+    </string>
+
+    <string name="change_number">
+        Change Number
+    </string>
+
 </resources>

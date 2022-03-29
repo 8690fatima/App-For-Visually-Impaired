@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">
+        VISION
+    </string>
+
+    <string name="welcomeMessage">
+        नमस्कार, VISION मध्ये आपले स्वागत आहे.
+    </string>
+
+    <string name="emergencyNumbersMessage">
+        कृपया तुमच्या जवळच्या लोकांचे फोन नंबर टाका.
+        एक किंवा जास्तीत जास्त तीन फोन नंबर टाका.
+        तुमच्या फोनची बॅटरी कमी झाल्यावर,
+        तुमचा वर्तमान पत्ता, या क्रमांकांवर एसएमएसद्वारे पाठवला जाईल, जे वापरून, ते तुम्हाला घेण्यासाठी येऊ शकतील.
+    </string>
+
+    <string name="intro">
+        माइक बटण दाबा आणि,
+        म्हणा, शोधा,
+        किंवा, म्हणा, वाचा,
+        किंवा, म्हणा, असिस्टंट.
+        अधिक माहितीसाठी म्हणा, मदत.
+    </string>
+
+    <string name="batteryLowMessage">
+        तुमच्या मोबाईलची बॅटरी २०% पेक्षा कमी आहे.
+        माइक बटण दाबा आणि,
+        तुमचा वर्तमान पत्ता तुमच्या जवळच्या लोकांना एसएमएसद्वारे पाठवण्यासाठी, माइकमध्ये म्हणा, हो,
+        किंवा,
+        बॅटरी कमी सूचना थांबवण्यासाठी, माइकमध्ये म्हणा, नाही.
+    </string>
+
+    <string name="batteryNoMessage">
+        बॅटरी लो सूचना थांबवले आहे.
+    </string>
+
+    <string name="location">
+        माझ्या फोनची बॅटरी कमी आहे. कृपया मला या ठिकाणी शोधा http://maps.google.com/maps?q=loc:
+    </string>
+
+    <string name="cameraSearch">
+        शोधण्यासाठी कॅमेरा सुरू करत आहे.
+    </string>
+
+    <string name="cameraRead">
+        वाचनासाठी कॅमेरा सुरू करत आहे.
+    </string>
+
+    <string name="assistant">
+        गुगल असिस्टंट सुरू करत आहे.
+    </string>
+
+    <string name="cameraStopped">
+        कॅमेरा बंद केला जात आहे.
+    </string>
+
+    <string name="inputCommandSearch">
+        शोधा
+    </string>
+
+    <string name="inputCommandRead">
+        वाचा
+    </string>
+
+    <string name="inputCommandAssistant">
+        असिस्टंट
+    </string>
+
+    <string name="inputCommandHelp">
+        मदत
+    </string>
+
+    <string name="help">
+        तुमच्या आजूबाजूला काय आहे हे शोधण्यासाठी, माइकमध्ये म्हणा, शोधा.
+        काही वाचायचे असेल तर, माइकमध्ये म्हणा, वाचा.
+        गुगल असिस्टंट सुरू करण्यासाठी,माइकमध्ये म्हणा, मदत.
+    </string>
+
+    <string name="battery">
+        बॅटरी
+    </string>
+
+    <string name="inputCommandBatteryYes">
+        बॅटरी हो
+    </string>
+
+    <string name="inputCommandBatteryNo">
+        बॅटरी नाही
+    </string>
+
+    <string name="appPermissionMessage">
+        कृपया आवश्यक अॅप परवानग्या स्वीकारा
+    </string>
+
+    <string name="locationMessage">
+        तुमचा वर्तमान पत्ता शोधत आहे.
+    </string>
+
+    <string name="GPSMessage">
+        कृपया अपने डिवाइस पर GPS चालू करें
+    </string>
+
+    <string name="SMSMessage">
+        ककृपया प्रतीक्षा करा, तुमचा वर्तमान पत्ता, एसएमएसद्वारे, रेकॉर्ड केले क्रमांकांवर, पाठवले जात आहे.
+    </string>
+
+    <string name="enter_number_to_ncall_nin_nemergency">
+        आपत्कालीन परिस्थितीत\nकॉल करण्यासाठी\nफोन नंबर प्रविष्ट करा!
+    </string>
+
+    <string name="hintContact1">
+        संपर्क क्रमांक 1
+    </string>
+
+    <string name="hintContact2">
+        संपर्क क्रमांक 2
+    </string>
+
+    <string name="hintContact3">
+        संपर्क क्रमांक 3
+    </string>
+
+    <string name="finish">
+        समाप्त
+    </string>
+
+    <string name="hintSMSLog">
+        एसएमएस लॉग
+    </string>
+
+    <string name="home">
+        होम
+    </string>
+
+    <string name="RegisterNumber">
+        रजिस्टर नंबर
+    </string>
+
+    <string name="AppPermissions">अप्प परमिसन</string>
+
+    <string name="Call">कॉल</string>
+
+    <string name="SMSLocation">एसएमएस लोकेशन</string>
+
+    <string name="change_number">चेनज नमबर</string>
+
+</resources>

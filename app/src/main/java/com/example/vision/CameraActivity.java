@@ -1,6 +1,5 @@
 package com.example.vision;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -9,6 +8,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.Window;
@@ -31,7 +31,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
     private Mat mGray;
     private CameraBridgeViewBase mOpenCvCameraView;
     private objectDetectorClass objectDetectorClass;
-
+    private Mat out;
 
     private BaseLoaderCallback mLoaderCallback =new BaseLoaderCallback(this) {
         @Override
@@ -78,7 +78,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
 
         try{
             //input size is 300 for this model
-            objectDetectorClass = new objectDetectorClass(CameraActivity.this, getAssets(),"ssd_mobilenet_v1_1_metadata_1.tflite","labelmap.txt",300);
+            objectDetectorClass = new objectDetectorClass(getApplicationContext(), getAssets(),"ssd_mobilenet_v1_1_metadata_1.tflite","labelmap.txt",300);
             Log.d("MainActivity","Model is successfully loaded");
         }
         catch(IOException e){
@@ -123,6 +123,8 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         mRgba=new Mat(height,width, CvType.CV_8UC4);
         mGray =new Mat(height,width,CvType.CV_8UC1);
     }
+
+    static int count = 0;
     public void onCameraViewStopped(){
         mRgba.release();
     }
@@ -130,11 +132,15 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         mRgba=inputFrame.rgba();
         mGray=inputFrame.gray();
 
-        Mat out=new Mat();
+        out=new Mat();
         out=objectDetectorClass.recognizeImage(mRgba);
 
         return out;
-
     }
 
+    @Override
+    public void onBackPressed() {
+        new TTS().initializeTTS(getString(R.string.cameraStopped),getApplicationContext());
+        super.onBackPressed();
+    }
 }
