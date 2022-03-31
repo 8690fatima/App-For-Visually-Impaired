@@ -32,7 +32,7 @@ public class CallGuardian extends AppCompatActivity {
     void phoneCall(){
 
         SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        String num1 = sharedPreferences.getString("num1", "NONE");
+        String num1 = (sharedPreferences.getString("emergencyNumbers","NONE").split(";"))[0];
 
         //if call permission is not granted
         if (ActivityCompat.checkSelfPermission(getApplicationContext(),
@@ -48,6 +48,7 @@ public class CallGuardian extends AppCompatActivity {
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" + num1));
         startActivity(callIntent);
+        TTS.shutdown();
         finish();
     }
 

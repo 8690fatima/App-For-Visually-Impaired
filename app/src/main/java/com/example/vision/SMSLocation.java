@@ -34,6 +34,7 @@ public class SMSLocation extends AppCompatActivity {
 
         //Setting the page title
         getSupportActionBar().setTitle(R.string.SMSLocation);
+
     }
 
     @Override
@@ -90,7 +91,7 @@ public class SMSLocation extends AppCompatActivity {
         if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) &&
                 !locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 
-            new TTS().initializeTTS(getString(R.string.GPSMessage),getApplicationContext());
+            TTS.speakText(getString(R.string.GPSMessage),getApplicationContext());
 
             startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -122,7 +123,7 @@ public class SMSLocation extends AppCompatActivity {
     @SuppressLint("MissingPermission")
     void getLocationUsingProvider(String Provider){
 
-        new TTS().initializeTTS(getString(R.string.locationMessage),getApplicationContext());
+        TTS.speakText(getString(R.string.locationMessage),getApplicationContext());
         ProgressDialog.show(this,"Fetching Location","Please wait...",true);
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

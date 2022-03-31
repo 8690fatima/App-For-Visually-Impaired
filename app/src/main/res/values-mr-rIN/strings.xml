@@ -32,7 +32,7 @@
         बॅटरी कमी सूचना थांबवण्यासाठी, माइकमध्ये म्हणा, नाही.
     </string>
 
-    <string name="batteryNoMessage">
+    <string name="batteryDismiss">
         बॅटरी लो सूचना थांबवले आहे.
     </string>
 
@@ -145,5 +145,13 @@
     <string name="SMSLocation">एसएमएस लोकेशन</string>
 
     <string name="change_number">चेनज नमबर</string>
+
+    <string name="invalid_number">
+        चुकीचा मोबाईल नंबर
+    </string>
+
+    <string name="empty">
+
+    </string>
 
 </resources>

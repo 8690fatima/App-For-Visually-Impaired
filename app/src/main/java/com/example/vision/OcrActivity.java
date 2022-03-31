@@ -56,6 +56,8 @@ public class OcrActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr);
 
+        TTS.speakText(getString(R.string.cameraRead),getApplicationContext());
+
         cameraView = (SurfaceView) findViewById(R.id.surface_view);
         textView = (TextView) findViewById(R.id.text_view);
 
@@ -140,13 +142,8 @@ public class OcrActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     public void onBackPressed() {
-        new TTS().initializeTTS(getString(R.string.cameraStopped),getApplicationContext());
+        TTS.speakText(getString(R.string.cameraStopped),getApplicationContext());
         super.onBackPressed();
     }
 }

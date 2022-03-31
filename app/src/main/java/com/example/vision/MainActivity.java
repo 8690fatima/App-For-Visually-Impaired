@@ -11,14 +11,6 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        new TTS().initializeTTS(getString(R.string.welcomeMessage), getApplicationContext());
-
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
 
@@ -47,7 +39,7 @@ public class MainActivity extends Activity {
         }
         else{
 
-            //Redirecting to App Permissions Activity
+            //Redirecting to App Permissions Activity after emergency numbers
             Intent appPermissionsIntent = new Intent();
             appPermissionsIntent.setClass(this, AppPermissions.class);
             startActivity(appPermissionsIntent);

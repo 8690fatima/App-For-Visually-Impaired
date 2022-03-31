@@ -79,9 +79,11 @@ public class HomeActivity extends AppCompatActivity {
     //Function to implement battery low feature
     public void batteryLow()
     {
+        batteryLowNotificationDismissed = true;
         //Go to SMSLocation Activity for fetching users current location
         startActivity(new Intent().setClass(getApplicationContext(), SMSLocation.class));
 
+        TTS.stop();
         //End the HomeActivity
         finish();
     }
@@ -95,6 +97,12 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(getString(R.string.home));
 
         mic_button=findViewById(R.id.mic_button);
+
+        speechInputCode = 10;
+        speechOutputCode = R.string.intro;
+        batteryLowNotificationDismissed = false;
+
+        TTS.speakText(getString(R.string.welcomeMessage),getApplicationContext());
 
         if(!batteryLowNotificationDismissed && speechInputCode!=20){
 
@@ -121,7 +129,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onResume();
 
         //Every time the activity resumes speech output is given
-        new TTS().initializeTTS(getString(speechOutputCode), getApplicationContext());
+        TTS.speakText(getString(speechOutputCode), getApplicationContext());
 
         //If battery is low and not yet dismissed then dont go further from here and return
         if(!batteryLowNotificationDismissed && speechInputCode==20){
@@ -131,6 +139,16 @@ public class HomeActivity extends AppCompatActivity {
         //Set the input and output speech code to default
         speechInputCode = 10;
         speechOutputCode = R.string.intro;
+    }
+
+    @Override
+    protected void onPause() {
+        //We stop TTS everytime the activity is paused
+        //i.e. when the Speech recognition engine is running
+        //i.e when google assistant is running
+        //etc...
+        TTS.stop();
+        super.onPause();
     }
 
     @Override
@@ -182,29 +200,28 @@ public class HomeActivity extends AppCompatActivity {
 
     public void call(String result){
         if(result.equalsIgnoreCase(getString(R.string.inputCommandSearch))){
-            speechOutputCode = R.string.cameraSearch;
+//            speechOutputCode = R.string.cameraSearch;
             startActivity(new Intent(HomeActivity.this,CameraActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
         }
         else if (result.equalsIgnoreCase(getString(R.string.inputCommandRead))){
-            speechOutputCode = R.string.cameraRead;
+//            speechOutputCode = R.string.cameraRead;
             startActivity(new Intent(HomeActivity.this,OcrActivity.class));
         }
         else if(result.equalsIgnoreCase(getString(R.string.inputCommandHelp))){
-            new TTS().initializeTTS(getString(R.string.help), getApplicationContext());
+            TTS.speakText(getString(R.string.help),getApplicationContext());
         }
         else if(result.equalsIgnoreCase(getString(R.string.inputCommandAssistant))){
-            speechOutputCode = R.string.assistant;
+            speechOutputCode = R.string.empty;
             startActivity(new Intent(Intent.ACTION_VOICE_COMMAND).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
         else if(result.equals(getString(R.string.inputCommandBatteryYes))){
-            batteryLowNotificationDismissed = true;
-            speechOutputCode = R.string.batteryNoMessage;
+            closeBatteryLevelReceiver();
             batteryLow();
         }else if(result.equals(getString(R.string.inputCommandBatteryNo))){
-            new TTS().initializeTTS(getString(R.string.batteryNoMessage),getApplicationContext());
+            batteryLowNotificationDismissed = true;
+            TTS.speakText(getString(R.string.batteryDismiss),getApplicationContext());
             speechInputCode = 10;
             speechOutputCode = R.string.intro;
-            batteryLowNotificationDismissed = true;
             closeBatteryLevelReceiver();
         }
     }

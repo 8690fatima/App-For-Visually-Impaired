@@ -33,6 +33,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+//TODO: Uncomment all the lines with text 'frame' in them.
+// Do,
+// if(frame % 5 == 0){ //object detection for loop }
+// Do this to check if we can skip some camera frames so that there is no queue of tts sentences of the
+// same object repeating again and again.
+
 public class objectDetectorClass {
 
     //Context from CameraActivity
@@ -49,7 +55,7 @@ public class objectDetectorClass {
     private GpuDelegate gpuDelegate;
     private int height = 0;
     private int width = 0;
-    private TextToSpeech textToSpeech;
+//    static int frameCount = 0;
 
     objectDetectorClass(Context context, AssetManager assetManager, String modelPath, String labelPath, int inputSize) throws IOException {
 
@@ -149,6 +155,12 @@ public class objectDetectorClass {
         //Stores the object names
         ArrayList<String> objectsFound = new ArrayList<>();
 
+//        frameCount++;
+
+//        if(frameCount % 5 == 0){
+//
+//        }
+
         // loop through each object
         // as output has only 10 boxes
         for (int i=0;i<10;i++){
@@ -185,18 +197,8 @@ public class objectDetectorClass {
             objects += obj + ", ";
         }
 
-        String finalOutput = objects; //Need to pass the objects string as a final variable in tts
-
-        textToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
-                    @Override
-                    public void onInit(int i) {
-                        if (i == TextToSpeech.SUCCESS && !finalOutput.equals("")) {
-                            textToSpeech.speak(finalOutput + "lies ahead of you", TextToSpeech.QUEUE_FLUSH,null);
-                        }else{
-                            Log.e("ObjectDetectorClass","Failed to read out object name");
-                        }
-                    }
-                });
+        if(!objects.equals(""))
+        TTS.speakText(objects + "lies ahead of you", context);
 
         // before returning rotate back by -90 degree
         Core.flip(rotated_mat_image.t(),mat_image,0);

@@ -74,8 +74,7 @@ public class AppPermissions extends AppCompatActivity {
         if(permissionsArray.length > 0) {
 
             requestPermissions(permissionsArray, 1000);
-            new TTS().initializeTTS(getString(R.string.appPermissionMessage),this);
-
+            TTS.speakText(getString(R.string.appPermissionMessage), getApplicationContext());
         }else{
             goToHomeActivity();
         }

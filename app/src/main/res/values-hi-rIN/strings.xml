@@ -32,7 +32,7 @@
         बैटरी कम होने की सूचना को रोकने के लिए, कहिये, नहीं।
     </string>
 
-    <string name="batteryNoMessage">
+    <string name="batteryDismiss">
         बैटरी कम होने की सूचना रोक दी गई है.
     </string>
 
@@ -147,5 +147,13 @@
     </string>
 
     <string name="change_number">चेनज नमबर</string>
+
+    <string name="invalid_number">
+        अमान्य मोबाईल नंबर
+    </string>
+
+    <string name="empty">
+
+    </string>
 
 </resources>

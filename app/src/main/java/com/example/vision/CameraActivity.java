@@ -62,6 +62,8 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        TTS.speakText(getString(R.string.cameraSearch),getApplicationContext());
+
         int MY_PERMISSIONS_REQUEST_CAMERA=0;
         // if camera permission is not given it will ask for it on device
         if (ContextCompat.checkSelfPermission(CameraActivity.this, Manifest.permission.CAMERA)
@@ -116,7 +118,6 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         if(mOpenCvCameraView !=null){
             mOpenCvCameraView.disableView();
         }
-
     }
 
     public void onCameraViewStarted(int width ,int height){
@@ -140,7 +141,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
 
     @Override
     public void onBackPressed() {
-        new TTS().initializeTTS(getString(R.string.cameraStopped),getApplicationContext());
+        TTS.speakText(getString(R.string.cameraStopped),getApplicationContext());
         super.onBackPressed();
     }
 }

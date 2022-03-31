@@ -20,7 +20,7 @@ public class Emergency_no extends AppCompatActivity {
         setContentView(R.layout.activity_register_no);
         getSupportActionBar().setTitle(R.string.RegisterNumber);
 
-        new TTS().initializeTTS(getString(R.string.emergencyNumbersMessage),this);
+        TTS.speakText(getString(R.string.emergencyNumbersMessage), getApplicationContext());
 
         number1 = findViewById(R.id.number1);
         number2 = findViewById(R.id.number2);
@@ -38,7 +38,7 @@ public class Emergency_no extends AppCompatActivity {
             return;
         }
 
-        //Here on the three if statements check if the numbers are valid or not
+        //Below the three if statements check if the mobile numbers are valid or not
         if(!numberStr1.equals("") && !numberStr1.matches("^\\d{10}$")){
             inValid();
             return;
@@ -63,11 +63,17 @@ public class Emergency_no extends AppCompatActivity {
         myEdit.putBoolean("emergencyNumbersNotNull", true);
 
         myEdit.apply();
-        Emergency_no.this.finish();
+        TTS.stop();
+        finish();
+    }
 
+    @Override
+    public void onBackPressed() {
+        TTS.stop();
+        super.onBackPressed();
     }
 
     void inValid(){
-        new TTS().initializeTTS("Invalid number",this);
+        TTS.speakText(getString(R.string.invalid_number), Emergency_no.this);
     }
 }

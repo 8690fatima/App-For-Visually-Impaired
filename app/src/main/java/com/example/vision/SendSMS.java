@@ -63,7 +63,7 @@ public class SendSMS extends AppCompatActivity {
 
         message = getIntent().getStringExtra("locationMessage");
 
-        new TTS().initializeTTS(getString(R.string.SMSMessage),getApplicationContext());
+        TTS.speakText(getString(R.string.SMSMessage),getApplicationContext());
 
         getEmergencyNumbers();
     }
