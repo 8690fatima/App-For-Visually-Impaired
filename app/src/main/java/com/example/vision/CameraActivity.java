@@ -141,6 +141,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
 
     @Override
     public void onBackPressed() {
+        TTS.stop();
         TTS.speakText(getString(R.string.cameraStopped),getApplicationContext());
         super.onBackPressed();
     }

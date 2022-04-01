@@ -3,14 +3,11 @@ package com.example.vision;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
-import android.speech.tts.TextToSpeech;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -61,11 +58,6 @@ public class OcrActivity extends AppCompatActivity {
         cameraView = (SurfaceView) findViewById(R.id.surface_view);
         textView = (TextView) findViewById(R.id.text_view);
 
-        TextToSpeech textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-            }
-        });
         TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
         if (!textRecognizer.isOperational()) {
             Log.w("MainActivity", "Detector dependencies are not yet available");
@@ -135,7 +127,7 @@ public class OcrActivity extends AppCompatActivity {
                 }
                 public void viewText(String textconverted){
                     textView.setText(textconverted);
-                    textToSpeech.speak(textconverted, TextToSpeech.QUEUE_FLUSH, null, null);
+                    TTS.speakText(textconverted, getApplicationContext());
                 }
             });
         }
@@ -143,6 +135,7 @@ public class OcrActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        TTS.stop();
         TTS.speakText(getString(R.string.cameraStopped),getApplicationContext());
         super.onBackPressed();
     }
