@@ -71,4 +71,12 @@ public class TTS{
             Log.i("TTS", "SHUTDOWN");
         }
     }
+
+    static boolean isSpeaking(){
+        if(textToSpeech.isSpeaking()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

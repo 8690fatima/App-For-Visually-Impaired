@@ -64,6 +64,8 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
 
         TTS.speakText(getString(R.string.cameraSearch),getApplicationContext());
 
+        new objectDetectorClass();
+
         int MY_PERMISSIONS_REQUEST_CAMERA=0;
         // if camera permission is not given it will ask for it on device
         if (ContextCompat.checkSelfPermission(CameraActivity.this, Manifest.permission.CAMERA)
@@ -110,10 +112,13 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         super.onPause();
         if (mOpenCvCameraView !=null){
             mOpenCvCameraView.disableView();
+            TTS.stop();
+            finish();
         }
     }
 
     public void onDestroy(){
+
         super.onDestroy();
         if(mOpenCvCameraView !=null){
             mOpenCvCameraView.disableView();

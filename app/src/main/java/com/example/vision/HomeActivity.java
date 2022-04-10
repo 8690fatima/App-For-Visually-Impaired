@@ -93,6 +93,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+//        TTS.speakText(getString(R.string.welcomeMessage),getApplicationContext());
+
         //Set the page title
         getSupportActionBar().setTitle(getString(R.string.home));
 
@@ -101,8 +103,6 @@ public class HomeActivity extends AppCompatActivity {
         speechInputCode = 10;
         speechOutputCode = R.string.intro;
         batteryLowNotificationDismissed = false;
-
-        TTS.speakText(getString(R.string.welcomeMessage),getApplicationContext());
 
         if(!batteryLowNotificationDismissed && speechInputCode!=20){
 

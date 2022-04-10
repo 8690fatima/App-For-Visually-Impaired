@@ -33,12 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-//TODO: Uncomment all the lines with text 'frame' in them.
-// Do,
-// if(frame % 5 == 0){ //object detection for loop }
-// Do this to check if we can skip some camera frames so that there is no queue of tts sentences of the
-// same object repeating again and again.
-
 public class objectDetectorClass {
 
     //Context from CameraActivity
@@ -55,7 +49,16 @@ public class objectDetectorClass {
     private GpuDelegate gpuDelegate;
     private int height = 0;
     private int width = 0;
-//    static int frameCount = 0;
+    static Mat acceptedImage;
+
+    //This variable is used to parse a single input frame at a time
+    static boolean passNextFrame;
+
+    objectDetectorClass(){
+        objectDetectorClass.passNextFrame = true;
+        acceptedImage = null;
+    }
+
 
     objectDetectorClass(Context context, AssetManager assetManager, String modelPath, String labelPath, int inputSize) throws IOException {
 
@@ -89,7 +92,6 @@ public class objectDetectorClass {
         return labelList;
     }
 
-
     private ByteBuffer loadModelFile(AssetManager assetManager, String modelPath) throws IOException {
         // use to get description of file
         AssetFileDescriptor fileDescriptor = assetManager.openFd(modelPath);
@@ -103,6 +105,7 @@ public class objectDetectorClass {
 
     //New Mat function
     public Mat recognizeImage(Mat mat_image) {
+
         // Rotate original image by 90 degree get get portrait frame
         Mat rotated_mat_image = new Mat();
         Core.flip(mat_image.t(),rotated_mat_image,1);
@@ -152,60 +155,85 @@ public class objectDetectorClass {
         Object Object_class = output_map.get(1);
         Object score = output_map.get(2);
 
-        //Stores the object names
-        ArrayList<String> objectsFound = new ArrayList<>();
+        //parsing single frame at a time and Skipping all the
+        // incoming frames until all objects of the current frame are recited
+        if(passNextFrame){
 
-//        frameCount++;
+            //Immediately we make it false so that we can skip the incoming frames
+            passNextFrame = false;
 
-//        if(frameCount % 5 == 0){
-//
-//        }
+            Log.i("ObjectDetection", "\nFrame accepted. Processing image...\n");
 
-        // loop through each object
-        // as output has only 10 boxes
-        for (int i=0;i<10;i++){
+            //Stores the object names
+            ArrayList<String> objectsFound = new ArrayList<>();
 
-            float class_value=(float) Array.get(Array.get(Object_class,0),i);
-            float score_value=(float) Array.get(Array.get(score,0),i);
-            // define threshold for score
-            if(score_value>0.5){
-                Object box1=Array.get(Array.get(value,0),i);
-                // we are multiplying it with Original height and width of frame
+            // loop through each object
+            // as output has only 10 boxes
+            for (int i = 0; i < 10; i++) {
 
-                float top=(float) Array.get(box1,0)*height;
-                float left=(float) Array.get(box1,1)*width;
-                float bottom=(float) Array.get(box1,2)*height;
-                float right=(float) Array.get(box1,3)*width;
-                // draw rectangle in Original frame //  starting point    // ending point of box  // color of box       thickness
-                Imgproc.rectangle(rotated_mat_image,new Point(left,top),new Point(right,bottom),new Scalar(0, 255, 0, 255),2);
-                // write text on frame
-                // string of class name of object  // starting point                         // color of text           // size of text
+                float class_value = (float) Array.get(Array.get(Object_class, 0), i);
+                float score_value = (float) Array.get(Array.get(score, 0), i);
+                // define threshold for score
+                if (score_value > 0.5) {
+                    Object box1 = Array.get(Array.get(value, 0), i);
+                    // we are multiplying it with Original height and width of frame
 
-                String objectClass = labelList.get((int) class_value);
+                    float top = (float) Array.get(box1, 0) * height;
+                    float left = (float) Array.get(box1, 1) * width;
+                    float bottom = (float) Array.get(box1, 2) * height;
+                    float right = (float) Array.get(box1, 3) * width;
+                    // draw rectangle in Original frame //  starting point    // ending point of box  // color of box       thickness
+                    Imgproc.rectangle(rotated_mat_image, new Point(left, top), new Point(right, bottom), new Scalar(0, 255, 0, 255), 2);
+                    // write text on frame
+                    // string of class name of object  // starting point                         // color of text           // size of text
 
-                //Adding the object found to the arraylist
-                objectsFound.add(objectClass);
+                    String objectClass = labelList.get((int) class_value);
 
-                Imgproc.putText(rotated_mat_image,objectClass,new Point(left,top),3,1,new Scalar(255, 0, 0, 255),2);
+                    //Adding the object found to the arraylist
+                    objectsFound.add(objectClass);
+
+                    Imgproc.putText(rotated_mat_image, objectClass, new Point(left, top), 3, 1, new Scalar(255, 0, 0, 255), 2);
+                }
+            }
+
+            //If objects were found only then we speak else process the next frame
+            if(objectsFound.size() != 0) {
+
+                String objects = "";
+
+                //Appending all objects found to the string objects
+                for(String obj: objectsFound){
+                    objects += obj + ", ";
+                }
+
+                TTS.speakText(objects + " detected.", context);
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        //Keep looping while TTS is speaking
+                        while(TTS.isSpeaking());
+
+                        //The moment TTS stops speaking, get ready to parse next frame
+                        passNextFrame = true;
+                    }
+                }).start();
+            }
+            else{ //Indicates there were no objects found in the processed frame hence we go
+                //for next incoming frame
+                passNextFrame = true;
             }
         }
-
-        String objects = "";
-
-        //Appending all objects found to string objects
-        for(String obj: objectsFound){
-            objects += obj + ", ";
+        else{
+            Log.i("ObjectDetection", "Frame skipped.");
         }
-
-        if(!objects.equals(""))
-        TTS.speakText(objects + "lies ahead of you", context);
 
         // before returning rotate back by -90 degree
         Core.flip(rotated_mat_image.t(),mat_image,0);
         Core.flip(mat_image.t(),mat_image,1);
 
         return mat_image;
-
     }
 
     private ByteBuffer convertBitmapToByteBuffer(Bitmap bitmap) {
@@ -246,4 +274,7 @@ public class objectDetectorClass {
 
         return byteBuffer;
     }
+
+
+
 }

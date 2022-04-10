@@ -134,6 +134,13 @@ public class OcrActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        TTS.stop();
+        finish();
+    }
+
+    @Override
     public void onBackPressed() {
         TTS.stop();
         TTS.speakText(getString(R.string.cameraStopped),getApplicationContext());

@@ -20,11 +20,17 @@ public class Emergency_no extends AppCompatActivity {
         setContentView(R.layout.activity_register_no);
         getSupportActionBar().setTitle(R.string.RegisterNumber);
 
-        TTS.speakText(getString(R.string.emergencyNumbersMessage), getApplicationContext());
-
         number1 = findViewById(R.id.number1);
         number2 = findViewById(R.id.number2);
         number3 = findViewById(R.id.number3);
+    }
+
+    @Override
+    protected void onResume() {
+
+        TTS.speakText(getString(R.string.emergencyNumbersMessage), getApplicationContext());
+
+        super.onResume();
     }
 
     public void saveNumber(View view) {
@@ -65,6 +71,12 @@ public class Emergency_no extends AppCompatActivity {
         myEdit.apply();
         TTS.stop();
         finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TTS.stop();
     }
 
     @Override
